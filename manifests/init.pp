@@ -10,7 +10,7 @@ class elasticsearch (
   }
 
   yumrepo { 'elasticsearch':
-    baseurl        => "http://packages.elastic.co/elasticsearch/${version}/${distro}'
+    baseurl        => "http://packages.elastic.co/elasticsearch/${version}/${distro}"
     failovermethod => 'priority',
     enabled        => '1',
     gpgcheck       => '1',
