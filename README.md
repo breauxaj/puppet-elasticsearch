@@ -16,6 +16,11 @@ class { 'elasticsearch':
 }
 ```
 ```
+elasticsearch::config { 'default':
+
+}
+```
+```
 elasticsearch::service { 'default':
   ensure => running,
   enable => true
