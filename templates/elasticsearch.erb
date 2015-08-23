@@ -1,0 +1,135 @@
+# MANAGED BY PUPPET!
+################################
+# Elasticsearch
+################################
+
+# Elasticsearch home directory
+ES_HOME=/usr/share/elasticsearch
+
+# Elasticsearch configuration directory
+CONF_DIR=/etc/elasticsearch
+
+# Elasticsearch configuration file
+CONF_FILE=$CONF_DIR/elasticsearch.yml
+
+# Elasticsearch data directory
+<% if data_dir and ! data_dir.empty? -%>
+DATA_DIR=<%= data_dir %>
+<% else -%>
+#DATA_DIR=/var/lib/elasticsearch
+<% end -%>
+
+# Elasticsearch logs directory
+<% if log_dir and ! log_dir.empty? -%>
+LOG_DIR=<%= log_dir %>
+<% else -%>
+#LOG_DIR=/var/log/elasticsearch
+<% end -%>
+
+# Elasticsearch work directory
+<% if work_dir and ! work_dir.empty? -%>
+WORK_DIR=<%= work_dir %>
+<% else -%>
+#WORK_DIR=/tmp/elasticsearch
+<% end -%>
+
+# Elasticsearch PID directory
+#PID_DIR=/var/run/elasticsearch
+
+# Heap size defaults to 256m min, 1g max
+# Set ES_HEAP_SIZE to 50% of available RAM, but no more than 31g
+<% if es_heap_size and ! es_heap_size.empty? -%>
+ES_HEAP_SIZE=<%= es_heap_size %>
+<% else -%>
+#ES_HEAP_SIZE=2g
+<% end -%>
+
+# Heap new generation
+<% if es_heap_newsize and ! es_heap_newsize.empty? -%>
+ES_HEAP_NEWSIZE=<%= es_heap_newsize %>
+<% else -%>
+#ES_HEAP_NEWSIZE=
+<% end -%>
+
+# Maximum direct memory
+<% if es_direct_size and ! es_direct_size.empty? -%>
+ES_DIRECT_SIZE=<%= es_direct_size %>
+<% else -%>
+#ES_DIRECT_SIZE=
+<% end -%>
+
+# Additional Java OPTS
+<% if es_java_opts and ! es_java_opts.empty? -%>
+ES_JAVA_OPTS="<%= es_java_opts %>"
+<% else -%>
+#ES_JAVA_OPTS=
+<% end -%>
+
+# Configure restart on package upgrade (true, every other setting will lead to not restarting)
+<% if es_restart_on_upgrade and ! es_restart_on_upgrade.empty? -%>
+ES_RESTART_ON_UPGRADE=<%= es_restart_on_upgrade %>
+<% else -%>
+#ES_RESTART_ON_UPGRADE=true
+<% end -%>
+
+# Path to the GC log file
+<% if es_gc_log_file and ! es_gc_log_file.empty? -%>
+ES_GC_LOG_FILE=<%= es_gc_log_file %>
+<% else -%>
+#ES_GC_LOG_FILE=/var/log/elasticsearch/gc.log
+<% end -%>
+
+################################
+# Elasticsearch service
+################################
+
+# SysV init.d
+#
+# When executing the init script, this user will be used to run the elasticsearch service.
+# The default value is 'elasticsearch' and is declared in the init.d file.
+# Note that this setting is only used by the init script. If changed, make sure that
+# the configured user can read and write into the data, work, plugins and log directories.
+# For systemd service, the user is usually configured in file /usr/lib/systemd/system/elasticsearch.service
+<% if es_user and ! es_user.empty? -%>
+ES_USER=<%= es_user %>
+<% else -%>
+#ES_USER=elasticsearch
+<% end -%>
+<% if es_group and ! es_group.empty? -%>
+ES_GROUP=<%= es_group %>
+<% else -%>
+#ES_GROUP=elasticsearch
+<% end -%>
+
+################################
+# System properties
+################################
+
+# Specifies the maximum file descriptor number that can be opened by this process
+# When using Systemd, this setting is ignored and the LimitNOFILE defined in
+# /usr/lib/systemd/system/elasticsearch.service takes precedence
+<% if max_open_files and ! max_open_files.empty? -%>
+MAX_OPEN_FILES=<%= max_open_files %>
+<% else -%>
+#MAX_OPEN_FILES=65535
+<% end -%>
+
+# The maximum number of bytes of memory that may be locked into RAM
+# Set to "unlimited" if you use the 'bootstrap.mlockall: true' option
+# in elasticsearch.yml (ES_HEAP_SIZE  must also be set).
+# When using Systemd, the LimitMEMLOCK property must be set
+# in /usr/lib/systemd/system/elasticsearch.service
+<% if max_locked_memory and ! max_locked_memory.empty? -%>
+MAX_LOCKED_MEMORY=<%= max_locked_memory %>
+<% else -%>
+#MAX_LOCKED_MEMORY=unlimited
+<% end -%>
+
+# Maximum number of VMA (Virtual Memory Areas) a process can own
+# When using Systemd, this setting is ignored and the 'vm.max_map_count'
+# property is set at boot time in /usr/lib/sysctl.d/elasticsearch.conf
+<% if max_map_count and ! max_map_count.empty? -%>
+MAX_MAP_COUNT=<%= max_map_count -%>
+<% else -%>
+#MAX_MAP_COUNT=262144
+<% end -%>
