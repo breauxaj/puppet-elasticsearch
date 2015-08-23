@@ -11,7 +11,9 @@ Samples
 include elasticsearch
 ```
 ```
-class { 'elasticsearch': version => '1.7' }
+class { 'elasticsearch':
+  version => '1.7'
+}
 ```
 ```
 elasticsearch::service { 'default':
