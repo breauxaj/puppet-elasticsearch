@@ -1,16 +1,26 @@
 define elasticsearch::config (
-  $value
+
 ) {
   include ::elasticsearch
 
-  $key = $title
+  $conf = $::operatingsystem ? {
+    /(?i-mx:centos|fedora|redhat|scientific)/ => '/etc/elasticsearch',
+  }
 
-  $context = '/files/etc/???.conf'
+  file { "${conf}/elasticsearch.yml":
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('elasticsearch/elasticsearch.erb'),
+  }
 
-  augeas { "???_conf/${key}":
-    context => $context,
-    onlyif  => "get ${key} != '${value}'",
-    changes => "set ${key} '${value}'",
+  file { "${conf}/logging.yml":
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('elasticsearch/logging.erb'),
   }
 
 }
