@@ -1,4 +1,4 @@
-define elasticsearch::config (
+define elasticsearch::logging (
 
 ) {
   include ::elasticsearch
@@ -7,12 +7,12 @@ define elasticsearch::config (
     /(?i-mx:centos|fedora|redhat|scientific)/ => '/etc/elasticsearch',
   }
 
-  file { "${conf}/elasticsearch.yml":
+  file { "${conf}/logging.yml":
     ensure  => present,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template('elasticsearch/elasticsearch.erb'),
+    content => template('elasticsearch/logging.erb'),
   }
 
 }

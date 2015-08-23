@@ -21,6 +21,11 @@ elasticsearch::config { 'default':
 }
 ```
 ```
+elasticsearch::logging { 'default':
+
+}
+```
+```
 elasticsearch::service { 'default':
   ensure => running,
   enable => true
