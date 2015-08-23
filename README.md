@@ -26,6 +26,12 @@ elasticsearch::logging { 'default':
 }
 ```
 ```
+elasticsearch::sysconfig {
+  'ES_HEAP_SIZE':   value => '3g';
+  'MAX_MAP_COUNT':  value => '262144';
+}
+```
+```
 elasticsearch::service { 'default':
   ensure => running,
   enable => true
